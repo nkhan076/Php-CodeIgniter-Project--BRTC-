@@ -1,0 +1,301 @@
+drop table MonitoringCommittee;
+drop table INTERNAL;
+drop table EXTERNAL;
+drop table updateproject;
+drop table local_meeting;
+drop table part_project;
+drop table WorksONPROJECT;
+drop table completeproject;
+drop table Projectteam;
+drop table teamforproject;
+drop table project;
+drop table central_meeting;
+drop table meeting_decision;
+drop table Meeting_member;
+drop table Meeting;
+drop table PERSON;
+
+create table PERSON
+(
+	person_ID int auto_increment,
+	primary key (person_ID),
+	personName varchar(25) ,
+	personAdress varchar(80) ,
+	PersonPhn varchar(50),
+	Personmail varchar(50),
+	username varchar(10),
+	password varchar(10),
+	interest varchar(50),
+	join_date date,
+	release_date date
+) engine=innodb;
+
+
+create table EXTERNAL
+(
+	person_ID int,
+	primary key (person_ID),
+	foreign key(person_ID) references PERSON (person_ID)
+) engine=innodb;
+
+create table INTERNAL
+(
+	person_ID int,
+	primary key (person_ID),
+	foreign key(person_ID) references PERSON (person_ID)
+) engine=innodb;
+
+
+create table MonitoringCommittee
+(
+	person_ID int,
+	role varchar(15),
+	primary key (person_ID),
+	foreign key(person_ID) references INTERNAL (person_ID)
+) engine=innodb;
+
+
+
+
+
+--///////********project table***********//////////////
+
+
+
+
+create table PROJECT
+(
+	project_ID int auto_increment,
+	primary key (project_ID),
+	projectName varchar(50) ,
+	projectStartDate date,
+	projectfinishDate date,
+	OrganizationName varchar(50) ,
+	OrganizationAdress varchar(60) ,
+	organizationphn varchar(50),
+	organizationmail varchar(50) ,
+	clientname varchar(50),
+	clientphn varchar(50),
+	clientmail varchar(50)
+) engine=innodb;
+
+insert into PROJECT (project_ID,projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values (1,'BUET automation','2010-07-19','','BUET','Polashi,Dhaka','02154632','buet.ac.bd','M,A Rahman','0182356412',
+'rahman@yahoo.com');
+
+insert into PROJECT (projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values ('Railway Scheduling','2010-06-09','','Bangladesh Railway','Bonani,Dhaka','018212453','rail@yahoo.com',
+'Rofiz Ahmed','0191234567','rofiz@gmail.com');
+
+insert into PROJECT (projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values ('Bus Scheduling','2009-07-15','2009-10-10','BRTC','Gulshan,Dhaka','0191212453','bus@yahoo.com',
+'Rafi Ahmed','01861234567','rafi@gmail.com');
+
+
+
+
+create table part_project
+(
+	project_ID int,
+	project_partid int,
+	partname varchar(50),
+	primary key(project_ID,project_partid),
+	foreign key(project_ID) references project(project_ID)
+) engine=innodb;
+
+insert into part_project (project_ID,project_partid,partname) values (1,1,'BUET automation-1');
+insert into part_project (project_ID,project_partid,partname) values (1,2,'BUET automation-2');
+insert into part_project (project_ID,project_partid,partname) values (1,3,'BUET automation-3');
+
+insert into part_project (project_ID,project_partid,partname) values (2,1,'Bangladesh Railway-1');
+insert into part_project (project_ID,project_partid,partname) values (2,2,'Bangladesh Railway-2');
+
+insert into part_project (project_ID,project_partid,partname) values (3,1,'Bus Scheduling-1');
+insert into part_project (project_ID,project_partid,partname) values (3,2,'Bus Scheduling-2');
+insert into part_project (project_ID,project_partid,partname) values (3,3,'Bus Scheduling-3');
+insert into part_project (project_ID,project_partid,partname) values (3,4,'Bus Scheduling-4');
+
+
+
+create table updateproject
+(
+	project_id int,
+	project_partid int,
+	partUpdateDate int,
+	partupdatepersonID int,
+	partCompleteness decimal(5,2),
+	updatepersonname varchar(25),
+	index(project_id,project_partid),
+	foreign key(project_id,project_partid) references part_project(project_id,project_partid)
+) engine=innodb;
+
+
+insert into updateproject (project_id,project_partid,partUpdateDate,partupdatepersonID,partCompleteness,updatepersonname)
+values (1,1,'2011-08-15',5,40,'Dr. Md Saidur Rahman');
+insert into updateproject (project_id,project_partid,partUpdateDate,partupdatepersonID,partCompleteness,updatepersonname)
+values (1,2,'2011-09-10',6,30,'Dr. Md Ashikur Rahman');
+
+
+insert into updateproject (project_id,project_partid,partUpdateDate,partupdatepersonID,partCompleteness,updatepersonname)
+values (2,1,'2010-06-26',8,20,'Dr. Md Humayun Kabir');
+insert into updateproject (project_id,project_partid,partUpdateDate,partupdatepersonID,partCompleteness,updatepersonname)
+values (2,2,'2010-07-01',5,20,'Dr. Md Saidur Rahman');
+
+
+
+create table WorksONPROJECT
+(
+	project_ID int,
+	primary key(project_ID),
+	foreign key(project_ID) references PROJECT(project_ID)
+) engine=innodb;
+
+insert into WorksONPROJECT (project_ID) values (1);
+insert into WorksONPROJECT (project_ID) values (2);
+
+
+create table completeproject
+(
+	project_ID int,
+	primary key (project_ID),
+	foreign key(project_ID) references PROJECT(project_ID)
+) engine=innodb;
+
+insert into completeproject (project_ID) values (3);
+
+
+create table teamforproject
+(
+	project_ID int,
+	team_id int,
+	primary key (project_ID,team_id),
+	foreign key(project_ID) references project(project_ID)
+) engine=innodb;
+
+
+insert into Projectteam (project_id,team_ID) values (1,1);
+insert into Projectteam (project_id,team_ID) values (2,1);
+
+
+
+
+
+create table Projectteam
+(
+	team_ID int,
+	person_ID int,
+	project_id int,
+	role varchar(15),
+	primary key (team_ID,person_ID),
+	index(person_ID,team_ID),
+	foreign key(person_ID) references PERSON (person_ID),
+	foreign key(project_ID,team_ID) references teamforproject(project_ID,team_id)
+) engine=innodb;
+
+
+insert into Projectteam (project_id,person_ID,team_ID,role) values (1,5,1,Team Leader);
+insert into Projectteam (project_id,person_ID,team_ID,role) values (1,6,1,Team Member);
+insert into Projectteam (project_id,person_ID,team_ID,role) values (1,8,1,Team Member);
+
+
+insert into Projectteam (project_id,person_ID,team_ID,role) values (2,8,1,Team Leader);
+insert into Projectteam (project_id,person_ID,team_ID,role) values (2,5,1,Team Member);
+insert into Projectteam (project_id,person_ID,team_ID,role) values (2,10,1,Team Leader);
+insert into Projectteam (project_id,person_ID,team_ID,role) values (2,11,1,Team Member);
+
+
+--/////////////////for meeting/////////////
+
+
+create table Meeting
+(
+	meeting_ID int auto_increment,
+	meeting_Date date,
+	meeting_Location varchar(20),
+	meeting_Time time,
+	primary key(meeting_id)
+) engine=innodb;
+
+
+insert into meeting (meeting_id,meeting_date,meeting_location,meeting_time) values(1,'2010-07-27','buet-IAC','10:15:00');//kaj kre bonna ei format e time & date insert krte hobe
+insert into meeting (meeting_date,meeting_location,meeting_time) values('2010-06-30','Teachers Common Room','15:15:00');
+insert into meeting (meeting_date,meeting_location,meeting_time) values('2010-07-05','IAC','11:15:00');
+
+
+create table central_meeting
+(
+	meeting_id int,
+	primary key(meeting_id),
+	foreign key(meeting_id) references meeting(meeting_id)
+) engine=innodb;
+
+
+insert into central_meeting(meeting_id) values(2);
+
+
+
+create table local_meeting
+(
+	meeting_id int,
+	project_id int,
+	project_partid int,
+	primary key(meeting_id,project_id),
+	foreign key(meeting_id) references meeting(meeting_id),
+	index(project_id,project_partid),
+	foreign key(project_id,project_partid) references part_project(project_id,project_partid)
+) engine=innodb;
+
+
+
+
+insert into local_meeting(meeting_id,project_id,project_partid) values(1,1,1);
+insert into local_meeting(meeting_id,project_id,project_partid) values(1,1,2);
+insert into local_meeting(meeting_id,project_id,project_partid) values(3,2,1);
+insert into local_meeting(meeting_id,project_id,project_partid) values(3,2,2);
+insert into local_meeting(meeting_id,project_id,project_partid) values(2,1,1);
+insert into local_meeting(meeting_id,project_id,project_partid) values(2,1,2);
+insert into local_meeting(meeting_id,project_id,project_partid) values(2,1,3);
+insert into local_meeting(meeting_id,project_id,project_partid) values(2,2,1);
+insert into local_meeting(meeting_id,project_id,project_partid) values(2,2,2);
+
+
+
+
+create table meeting_decision
+(
+	meeting_id int,
+	meeting_decision varchar(200),
+	foreign key(meeting_id)	references meeting(meeting_id)
+) engine=innodb;
+
+insert into meeting_decision(meeting_id,meeting_decision) values(1,'decision-1');
+insert into meeting_decision(meeting_id,meeting_decision) values(1,'decision-2');
+insert into meeting_decision(meeting_id,meeting_decision) values(2,'decision-1');
+insert into meeting_decision(meeting_id,meeting_decision) values(2,'decision-2');
+insert into meeting_decision(meeting_id,meeting_decision) values(3,'decision-1');
+
+create table Meeting_member
+(
+	meeting_ID int,
+	person_ID int,
+	primary key(meeting_ID,person_ID),
+	foreign key(person_ID) references PERSON (person_ID),
+	foreign key(meeting_ID) references Meeting (meeting_ID)
+) engine=innodb;
+
+
+
+
+insert into Meeting_member(meeting_id,person_ID) values(1,5);
+insert into Meeting_member(meeting_id,person_ID) values(1,6);
+insert into Meeting_member(meeting_id,person_ID) values(1,8);
+
+insert into Meeting_member(meeting_id,person_ID) values(2,8);
+insert into Meeting_member(meeting_id,person_ID) values(2,5);
+
+insert into Meeting_member(meeting_id,person_ID) values(3,10);
+insert into Meeting_member(meeting_id,person_ID) values(3,11);
+insert into Meeting_member(meeting_id,person_ID) values(3,8);
+insert into Meeting_member(meeting_id,person_ID) values(3,5);
+
+

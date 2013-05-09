@@ -1,0 +1,132 @@
+create table user
+(
+	userID varchar(10),
+	userName varchar(40) ,
+	userAddress varchar(150) ,
+	userPhn varchar(50),
+	userMail varchar(50),
+	password varchar(10),
+	primary key (userID)
+)ENGINE=InnoDB;
+'//people will have different userIDs as different 'userType', i.e. the same person will have a different accounts as a project leader, as a project member or as a team leader.user id is different for different userTypes for the same person.'
+create table menu
+(
+	moduleName varchar(30),
+	role varchar(30),
+	link varchar(30)
+);
+create table project
+(
+	projectID int auto_increment,
+	projectName varchar(50) ,
+	projectStartDate date,
+	projectfinishDate date,
+	OrganizationName varchar(50) ,
+	OrganizationAdress varchar(60) ,
+	organizationphn varchar(50),
+	organizationmail varchar(50) ,
+	clientname varchar(50),
+	clientphn varchar(50),
+	clientmail varchar(50),
+	primary key (projectID)
+)ENGINE=InnoDB;
+"INDEX (projectID,projectmemberID),"
+create table projectLeader(
+projectID int,
+projectLeaderID varchar(10),
+PRIMARY KEY(projectID, projectLeaderID),
+INDEX (projectID,projectLeaderID),
+FOREIGN KEY (projectLeaderID) REFERENCES brtc.user(userID ) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (projectID) REFERENCES brtc.project(projectID)  ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+create table projectMember(
+projectID int,
+teamID varchar(10),
+projectmemberID varchar(10),
+PRIMARY KEY (projectID,projectmemberID),
+FOREIGN KEY (projectmemberID) references user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (projectID) references project(projectID) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (teamID) references team(teamID) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+'//create table team(
+//teamID varchar2(30),
+//projectID varchar2(50),
+//weight
+//);'
+"UNDER ONE PROJECT, ONE TEAM WILL HAVE ONLY ONE TEAM LEADER; BUT ONE TEAM LEADER CAN BE TEAM LEADER OF MORE THAN ONE TEAM UNDER A PROJECT"
+create table team(
+projectID int,
+teamID varchar(10),
+teamLeaderID varchar(10),
+PRIMARY KEY(projectID, teamID),
+INDEX (projectID,teamID),
+FOREIGN KEY (teamLeaderID) references user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (projectID) references project(projectID) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+
+
+
+create table client(
+projectID int,
+clientName varchar(50),
+clientID varchar(10),
+organization_Name varchar(170),
+PRIMARY KEY(projectID, clientID),
+FOREIGN KEY (clientID) references user(userID)ON DELETE CASCADE ON UPDATE CASCADE ,
+FOREIGN KEY (projectID) references project(projectID)ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+
+
+'//(a clientID is assigned to a group/an individual/an organization. One client will add 
+//installments to its own respective fundID' 
+
+
+
+create table fund(
+fundID varchar(40),
+clientID varchar(12),
+total_amount int,
+remaining_amount int,
+projectID int,
+PRIMARY KEY(projectID, clientID, fundID),
+FOREIGN KEY (clientID) references user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (projectID) references project(projectID) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+create table installment(
+fundID varchar2(40),
+scrollNumber varchar2(40),
+installment_amount number(14,2),
+payment_date date, 
+primary key(fundID,scroll_number),
+foreign key fundID references fund(fundID)
+)ENGINE=InnoDB;
+
+create table expenses(
+projectID varchar2(40),
+fundID varchar2(40),
+expenseID varchar2(30),
+expense_type varchar2(25),'Workload distribution/ non-workload-distribution'
+amount number(14,2),
+voucher_no varchar2(30),
+description varchar2(70),
+primary key(projectID, fundID, expenseID),
+FOREIGN KEY (projectID) references project(projectID),
+foreign key fundID references fund(fundID)
+)ENGINE=InnoDB;
+
+
+create table Fund_Distribution(
+fID varchar(40),
+fundID varchar(40),
+projectID int,
+distribution_date date,
+distributed_amount int,
+remaining_amount int,
+PRIMARY KEY (projectID,fundID,fID)
+)ENGINE=InnoDB;
+

@@ -1,0 +1,62 @@
+"data for "user" table"
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('1001','abc1','Reaz Ahmed','Buet,Dhaka-1000','011232','reazahmed@gmail.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('1002','abc1','Sohel Ahmed','Buet,Dhaka-1000','011332','sohelahmed@gmail.com');
+
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('2002','def1','Mazharul Islam','Mirpur Road,Dhaka-1200','021346','mhrl@gmail.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('2003','def2','Rofiz Ahmed','Bijoy Nagar,Dhaka-1200','0191234567','rofiz@gmail.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('2004','def3','Rafi Ahmed','Kakrail,Dhaka-1200','01861234567','rafi@gmail.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('2005','def4','Moniruzzaman','Uttara,Dhaka-1200','01761234567','monir@hotmail.com');
+
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('3003','abc2','Rakibul Islam','Nazrul Islam Hall,Buet,Dhaka','035654','rakibul134@gmail.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('4004','abc3','Fahmeedul Islam','Shahrawardi Hall,Buet,Dhaka','0512345','shuvo@yahoo.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('4001','abc3','Anisul Hauque','M A Rashid Hall,Buet,Dhaka','0512345','anis@yahoo.com');
+insert into user (userID,password,userName,userAddress,userPhn,userMail) values ('5005','def2','Nazifa Karima','Chattri Hall,Buet,Dhaka','061234','nazifa115@yahoo.com');
+
+
+insert into menu (moduleName,role,link) values ('Fund Management','project_leader','View Project report');
+insert into menu (moduleName,role,link) values ('Fund Management','team_leader','View Project report');
+insert into menu (moduleName,role,link) values ('Fund Management','client','View Project report');
+insert into menu (moduleName,role,link) values ('Fund Management','project_leader','Add fund');
+insert into menu (moduleName,role,link) values ('Fund Management','project_leader','Add Expense');
+insert into menu (moduleName,role,link) values ('Fund Management','project_leader','Distribution');
+insert into menu (moduleName,role,link) values ('Fund Management','team_leader','Add fund');
+insert into menu (moduleName,role,link) values ('Fund Management','team_leader','Add Expense');
+
+insert into project (projectID,projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values (1,'BUET automation','2010-07-19','','BUET','Polashi,Dhaka','02154632','buet.ac.bd','Mazharul Islam','021346',
+'mhrl@gmail.com');
+
+insert into project (projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values ('Railway Scheduling','2010-06-09','','Bangladesh Railway','Bonani,Dhaka','018212453','rail@yahoo.com',
+'Rofiz Ahmed','0191234567','rofiz@gmail.com');
+
+insert into project (projectName,projectStartDate,projectfinishDate,OrganizationName,OrganizationAdress,organizationphn,organizationmail,
+clientname,clientphn,clientmail) values ('Bus Scheduling','2009-07-15','2009-10-10','BRTC','Gulshan,Dhaka','0191212453','bus@yahoo.com',
+'Rafi Ahmed','01861234567','rafi@gmail.com');
+
+insert into projectLeader(projectID,projectLeaderID) values (1,'1001');
+insert into projectLeader(projectID,projectLeaderID) values (2,'1002');
+insert into projectLeader(projectID,projectLeaderID) values (3,'1001');
+
+
+insert into team (projectID,teamID,teamLeaderID) values(1,'001001','3003');
+insert into team (projectID,teamID,teamLeaderID) values(1,'001002','4004');
+insert into team (projectID,teamID,teamLeaderID) values(1,'001003','4001');
+insert into team (projectID,teamID,teamLeaderID) values(2,'002001','1001');
+
+
+insert into client (projectID,clientName,clientID,organization_name) values (1,'Mazharul Islam','2002','BUET');
+insert into client (projectID,clientName,clientID,organization_name) values (2,'Rofiz Ahmed','2003','Bangladesh Railway');
+insert into client (projectID,clientName,clientID,organization_name) values (3,'Rafi Ahmed','2004','BRTC');
+
+
+insert into fund (projectID,clientID,fundID,total_amount,remaining_amount) values(1,'2002','01002001',10000,9000);
+insert into fund (projectID,clientID,fundID,total_amount,remaining_amount) values(1,'2003','01002002',20000,10000);
+
+insert into menu (modulename, role ,link) values ('Fund Management','project_leader','insert into client (projectID,clientName,clientID,organization_name) values (1,'Mazharul Islam','2002','BUET');
+insert into client (projectID,clientName,clientID,organization_name) values (2,'Rofiz Ahmed','2003','Bangladesh Railway');
+insert into client (projectID,clientName,clientID,organization_name) values (3,'Rafi Ahmed','2004','BRTC');
+Home');
+insert into menu (modulename, role ,link) values ('Fund Management','project_leader','Add Fund');
+insert into menu (modulename, role ,link) values ('Fund Management','project_leader','Add Expense');
+insert into menu (modulename, role ,link) values ('Fund Management','project_leader','Distribution');
